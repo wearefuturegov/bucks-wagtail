@@ -12,9 +12,16 @@ This app does **not** include any page templates or front-end styling, as it's i
 
 **The master branch of this repo automatically deploys to [bucks-wagtail.herokuapp.com](http://bucks-wagtail.herokuapp.com).**
 
+## Prerequisites
+
+- python3 and pip
+- running postgresql server
+
 ## Developing locally
 
-1. Create a python virtual environment and clone this repo into the environment's folder. [Pipenv](https://docs.pipenv.org/en/latest/) is a good tool for this.
+Make sure you have a virtual environment tool installed before starting local development. [Pipenv](https://docs.pipenv.org/en/latest/) is a good tool for this.
+
+1. Clone this repo and `cd` into it
 2. Activate the virtual environment (if using pipenv, the command is `pipenv shell`)
 3. Install python dependencies with `pip install -r requirements.txt`
 4. Make sure a local postgresql server is running, and run `python manage.py migrate` to prepare a development database
