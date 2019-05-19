@@ -3,7 +3,7 @@ from django.db import models
 from wagtail.core.models import Page
 from wagtail.admin.edit_handlers import FieldPanel
 from wagtail.images.edit_handlers import ImageChooserPanel
-
+from wagtail.api import APIField
 
 class HomePage(Page):
     max_count = 1
@@ -17,6 +17,11 @@ class HomePage(Page):
         related_name="+",
         help_text="A large, mood-setting image which fills the top of the page"
     )
+
+    api_fields = [
+        APIField("intro"),
+        APIField("hero_image"),
+    ]
 
     content_panels = Page.content_panels + [
         FieldPanel("intro"),
