@@ -2,7 +2,15 @@
 
 Wagtail application/website for the Buckinghamshire adult social care project.
 
-The master branch of this repo automatically deploys to [bucks-wagtail.herokuapp.com](http://bucks-wagtail.herokuapp.com).
+It includes:
+
+- the ability to edit a start/home page and an unlimited number long-form narrative 'life event' pages
+- the ability to manage and edit a dataset of community assets
+
+This app does **not** include any page templates or front-end styling, as it's intended to be used in a headless manner via the [Wagtail REST API](http://docs.wagtail.io/en/v2.0/advanced_topics/api/index.html).
+
+
+**The master branch of this repo automatically deploys to [bucks-wagtail.herokuapp.com](http://bucks-wagtail.herokuapp.com).**
 
 ## Developing locally
 
