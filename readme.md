@@ -12,6 +12,11 @@ This app does **not** include any page templates or front-end styling, as it's i
 
 **The master branch of this repo automatically deploys to [bucks-wagtail.herokuapp.com](http://bucks-wagtail.herokuapp.com).**
 
+## API endpoints
+
+- `/api/v2/pages`
+- `/api/v2/community-assets`
+
 ## Prerequisites
 
 - python3 and pip

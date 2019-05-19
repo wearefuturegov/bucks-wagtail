@@ -8,6 +8,14 @@ from wagtail.api.v2.endpoints import BaseAPIEndpoint
 from communityassets.models import CommunityAsset
 
 class CommunityAssetsAPIEndpoint(BaseAPIEndpoint):
+    body_fields = BaseAPIEndpoint.body_fields + [
+        'title', 
+        'description'
+    ]
+    listing_default_fields = BaseAPIEndpoint.listing_default_fields + [
+        'title', 
+        'description'
+    ]
     model = CommunityAsset
 
 api_router = WagtailAPIRouter('wagtailapi')
