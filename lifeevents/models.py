@@ -4,6 +4,7 @@ from wagtail.core.models import Page
 from wagtail.admin.edit_handlers import FieldPanel, StreamFieldPanel
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.core.fields import StreamField
+from wagtail.api import APIField
 
 from streams import blocks
 
@@ -30,6 +31,12 @@ class LifeEventPage(Page):
         null=True,
         blank=True
     )
+
+    api_fields = [
+        APIField("first_paragraph"),
+        APIField("hero_image"),
+        APIField("content")
+    ]
 
     content_panels = Page.content_panels + [
         ImageChooserPanel("hero_image"),
