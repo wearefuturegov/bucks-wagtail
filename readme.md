@@ -16,7 +16,6 @@ This app does **not** include any page templates or front-end styling, as it's i
 
 - python3 and pip
 - a running postgresql server
-- credentials for an AWS S3 bucket and appropriately permissioned IAM user, set up according to [this guide](https://wagtail.io/blog/amazon-s3-for-media-files/)
 
 ## Developing locally
 
@@ -34,7 +33,7 @@ Make sure you have a virtual environment tool installed before starting local de
 
 This app has been prepared for Heroku according to [this guide](https://wagtail.io/blog/wagtail-heroku-2017/). It has a `Procfile` and `runtime.txt` that should make deploying relatively painless.
 
-In production, Amazon S3 is used to store user image uploads, so AWS credentials are needed.
+In production, Amazon S3 is used to store user image uploads, so you first need to create an S3 bucket and appropriately permissioned IAM user according to [this guide](https://wagtail.io/blog/amazon-s3-for-media-files/).
 
 To deploy:
 
