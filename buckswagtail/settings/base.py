@@ -29,7 +29,6 @@ INSTALLED_APPS = [
     'home',
     'search',
     'lifeevents',
-    'storages',
 
     'wagtail.contrib.forms',
     'wagtail.contrib.redirects',
@@ -172,10 +171,3 @@ WAGTAIL_SITE_NAME = "buckswagtail"
 # Base URL to use when referring to full URLs within the Wagtail admin backend -
 # e.g. in notification emails. Don't include '/admin' or a trailing slash
 BASE_URL = 'http://example.com'
-
-
-# S3 credentials
-AWS_STORAGE_BUCKET_NAME = env['AWS_STORAGE_BUCKET_NAME']
-AWS_ACCESS_KEY_ID = env['AWS_ACCESS_KEY_ID']
-AWS_SECRET_ACCESS_KEY = env['AWS_SECRET_ACCESS_KEY']
-AWS_S3_CUSTOM_DOMAIN = env['AWS_S3_CUSTOM_DOMAIN']

@@ -15,7 +15,8 @@ This app does **not** include any page templates or front-end styling, as it's i
 ## Prerequisites
 
 - python3 and pip
-- running postgresql server
+- a running postgresql server
+- credentials for an AWS S3 bucket and appropriately permissioned IAM user, set up according to [this guide](https://wagtail.io/blog/amazon-s3-for-media-files/)
 
 ## Developing locally
 
@@ -33,10 +34,18 @@ Make sure you have a virtual environment tool installed before starting local de
 
 This app has been prepared for Heroku according to [this guide](https://wagtail.io/blog/wagtail-heroku-2017/). It has a `Procfile` and `runtime.txt` that should make deploying relatively painless.
 
+In production, Amazon S3 is used to store user image uploads, so AWS credentials are needed.
+
 To deploy:
 
 1. Create a new app on Heroku and link to this repo. A database add-on should be automatically provisioned
-2. Make sure the `DATABASE_URL`, `SECRET_KEY` and `DJANGO_SETTINGS_MODULE` config vars are set
+2. Make sure all the following config vars are set:
+    - `DATABASE_URL`
+    - `SECRET_KEY`
+    - `DJANGO_SETTINGS_MODULE`
+    - `AWS_STORAGE_BUCKET_NAME`
+    - `AWS_ACCESS_KEY_ID`
+    - `AWS_SECRET_ACCESS_KEY`
 3. Run `python manage.py migrate` on Heroku to prepare the new database
 4. Run `python manage.py createsuperuser` to create an initial admin user
 5. The Wagtail dashboard should be accessible at the path /admin
