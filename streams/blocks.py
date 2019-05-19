@@ -3,16 +3,16 @@ from wagtail.images.blocks import ImageChooserBlock
 from rest_framework import serializers
 from wagtail.images.models import Image
 
-class ImageSerializer(serializers.HyperlinkedModelSerializer):
-    class Meta:
-        model = Image
-        fields = ['title', 'file', 'width', 'height', 'file_size']
-
+# Return custom image formats
 class APIFriendlyImageChooserBlock(ImageChooserBlock):
     def get_api_representation(self, value, context=None):
-        return ImageSerializer(context=context).to_representation(value)
-
-
+        if value:
+            return {
+                'id': value.id,
+                'title': value.title,
+                'large': value.get_rendition('width-1000').attrs_dict,
+                'thumbnail': value.get_rendition('fill-120x120').attrs_dict,
+            }
 
 
 class RichTextBlock(blocks.RichTextBlock):
