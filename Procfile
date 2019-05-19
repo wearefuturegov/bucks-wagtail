@@ -1,0 +1,1 @@
+web: gunicorn buckswagtail.wsgi --log-file -
