@@ -1,5 +1,19 @@
 from wagtail.core import blocks
 from wagtail.images.blocks import ImageChooserBlock
+from rest_framework import serializers
+from wagtail.images.models import Image
+
+class ImageSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Image
+        fields = ['title', 'file', 'width', 'height', 'file_size']
+
+class APIFriendlyImageChooserBlock(ImageChooserBlock):
+    def get_api_representation(self, value, context=None):
+        return ImageSerializer(context=context).to_representation(value)
+
+
+
 
 class RichTextBlock(blocks.RichTextBlock):
     def __init__(self, required=True, help_text=None, editor='default', features=None, validators=(), **kwargs):
@@ -29,7 +43,7 @@ class LearnMoreBlock(blocks.StructBlock):
 
 
 class PersonProfileBlock(blocks.StructBlock):
-    image = ImageChooserBlock(required=True, help_text="Add a headshot of the person")
+    image = APIFriendlyImageChooserBlock(required=True, help_text="Add a headshot of the person")
     headline = blocks.CharBlock(required=True, max_length=200, help_text="Include the person's name")
     text = blocks.RichTextBlock(required=True, features=["bold", "italic"])
 
