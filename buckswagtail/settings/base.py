@@ -31,6 +31,7 @@ INSTALLED_APPS = [
     'lifeevents',
     'communityassets',
 
+    'phonenumber_field',
     'wagtail.contrib.forms',
     'wagtail.contrib.redirects',
     'wagtail.contrib.modeladmin',
