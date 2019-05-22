@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'wagtail.api.v2',
     'modelcluster',
     'taggit',
+    # 'rest_framework',
 
     'django.contrib.admin',
     'django.contrib.auth',
@@ -174,3 +175,8 @@ WAGTAIL_SITE_NAME = "buckswagtail"
 # Base URL to use when referring to full URLs within the Wagtail admin backend -
 # e.g. in notification emails. Don't include '/admin' or a trailing slash
 BASE_URL = 'http://example.com'
+
+
+# Correctly format phone numbers
+PHONENUMBER_DB_FORMAT = 'NATIONAL'
+PHONENUMBER_DEFAULT_REGION = 'GB'

@@ -15,7 +15,7 @@ class CommunityAssetAdmin(ModelAdmin):
     menu_order = 10
     add_to_settings_menu = False
     exclude_from_explorer = False
-    list_display = ("name", "parent_organisation", "description")
-    search_fields = ("name", "parent_organisation", "description")
+    list_display = ("name", "description")
+    search_fields = ("name", "description")
 
 modeladmin_register(CommunityAssetAdmin)
