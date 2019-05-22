@@ -43,9 +43,9 @@ class LearnMoreBlock(blocks.StructBlock):
 
 
 class PersonProfileBlock(blocks.StructBlock):
-    image = APIFriendlyImageChooserBlock(required=True, help_text="Add a headshot of the person")
-    headline = blocks.CharBlock(required=True, max_length=200, help_text="Include the person's name")
-    text = blocks.RichTextBlock(required=True, features=["bold", "italic"])
+    image = APIFriendlyImageChooserBlock(required=True, help_text="A headshot of the person")
+    headline = blocks.CharBlock(required=True, max_length=200, help_text="A positive headline for this story, including the person's first name")
+    text = blocks.RichTextBlock(required=True, max_length=1500, features=["bold", "italic"], help_text="Aim for three short paragraphs: problem, action, result")
 
     class Meta:
         icon = "user"
