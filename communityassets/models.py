@@ -3,6 +3,12 @@ from wagtail.admin.edit_handlers import FieldPanel, MultiFieldPanel, FieldRowPan
 from phonenumber_field.modelfields import PhoneNumberField
 from django.forms import Select, CheckboxSelectMultiple, CheckboxInput
 
+from modelcluster.fields import ParentalKey
+from modelcluster.contrib.taggit import ClusterTaggableManager
+from taggit.models import TaggedItemBase
+
+from modelcluster.models import ClusterableModel
+
 
 class Categories(models.Model):
     name = models.CharField(blank=False, null=False, max_length=100)
@@ -29,15 +35,42 @@ class Accessibilities(models.Model):
     def __str__(self):
         return self.name
 
+class Keywords(TaggedItemBase):
+    content_object = ParentalKey(
+        'CommunityAsset',
+        related_name='tagged_items',
+        on_delete=models.CASCADE
+    )
 
-class CommunityAsset(models.Model):
+class ReviewStatus(models.Model):
+    name = models.CharField(blank=False, null=False, max_length=100)
+    def __str__(self):
+        return self.name
+
+class LAFAreas(models.Model):
+    name = models.CharField(blank=False, null=False, max_length=100)
+    def __str__(self):
+        return self.name
+
+class CCGLocalities(models.Model):
+    name = models.CharField(blank=False, null=False, max_length=100)
+    def __str__(self):
+        return self.name
+
+class LegacyCategories(models.Model):
+    name = models.CharField(blank=False, null=False, max_length=100)
+    def __str__(self):
+        return self.name
+
+
+class CommunityAsset(ClusterableModel):
     name = models.CharField(blank=False, null=True, max_length=200)
-    parent_organisation = models.CharField(blank=False, null=True, max_length=200, help_text="The parent organisation delivering this service, if applicable")
+    parent_organisation = models.CharField(blank=True, null=True, max_length=200, help_text="The parent organisation delivering this service, if applicable")
     description = models.TextField(blank=False, null=True, max_length=500, help_text="Describe the service in a short paragraph")
     price = models.DecimalField(max_digits=6, blank=True, null=True, decimal_places=2, help_text="Give a cost per session/activity. If a simple price cannot be given, leave the field blank.", verbose_name="Cost (£)")
     
     category = models.ForeignKey(Categories, on_delete=models.CASCADE, null=True, blank=False, default="")
-    # KEYWORDS
+    keywords = ClusterTaggableManager(through=Keywords, blank=True)
     age_groups = models.ManyToManyField(AgeGroups, blank=True)
     suitability = models.ManyToManyField(Suitabilities, blank=True)
     accessibility = models.ManyToManyField(Accessibilities, blank=True)
@@ -55,27 +88,26 @@ class CommunityAsset(models.Model):
     phone = PhoneNumberField(blank=True, null=True, help_text="Give a contact telephone number, with no spaces")
     url = models.URLField(blank=True, null=True, help_text="The website or webpage where this service can be booked, or where more info can be found about it", verbose_name="Website URL")
     
-    # REVIEW NOTES
-    # ASSIGNED TO
-    # REVIEW NUMBER
-    # REVIEW STATUS
-    # LAST UPDATED
-    # REVIEW DATE
 
-    # LAF AREAS
-    # CCG LOCALITY
+    review_notes = models.TextField(blank=True, null=True, max_length=500)
+    assigned_to = models.TextField(blank=True, null=True, max_length=500)
+    review_number = models.CharField(blank=True, null=True, max_length=100)
+    review_status = models.ForeignKey(ReviewStatus, on_delete=models.CASCADE, null=True, blank=False, default="")
 
-    # VOLUNTEERS DBS CHECKED?
-    # SAFEGUARDING
-    # HEALTH AND SAFETY
-    # INSURANCE
+    last_updated = models.DateField(blank=True, null=True)
+    review_date = models.DateField(blank=True, null=True)
 
-    # CLO NOTES
+    laf_areas = models.ForeignKey(LAFAreas, on_delete=models.CASCADE, null=True, blank=False, default="", verbose_name="LAF Area")
+    ccg_locality = models.ForeignKey(CCGLocalities, on_delete=models.CASCADE, null=True, blank=False, default="", verbose_name="CCG Locality")
 
-    # LEGACY CATEGORIES
+    vol_dbs_check = models.TextField(blank=True, null=True, max_length=500, verbose_name="Volunteer DBS check")
+    safeguarding = models.TextField(blank=True, null=True, max_length=500)
+    health_safety = models.TextField(blank=True, null=True, max_length=500)
+    insurance = models.TextField(blank=True, null=True, max_length=500)
 
+    clo_notes = models.TextField(blank=True, null=True, max_length=500, verbose_name="CLO notes")
 
-
+    legacy_categories = models.ManyToManyField(LegacyCategories, blank=True)
 
     panels = [
 
@@ -88,7 +120,7 @@ class CommunityAsset(models.Model):
 
         MultiFieldPanel([
             FieldPanel('category', widget=Select),
-            # ...
+            FieldPanel('keywords'),
             FieldPanel('age_groups', widget=CheckboxSelectMultiple),
             FieldPanel('suitability', widget=CheckboxSelectMultiple),
             FieldPanel('accessibility', widget=CheckboxSelectMultiple),
@@ -97,15 +129,17 @@ class CommunityAsset(models.Model):
         MultiFieldPanel([
             FieldPanel('days', widget=CheckboxSelectMultiple),
             FieldRowPanel([
-                FieldPanel('daytime'),
+                FieldPanel('daytime', widget=CheckboxInput),
                 FieldPanel('frequency')
             ]),
         ], heading="When?"),
 
         MultiFieldPanel([
             FieldPanel('venue'),
-            FieldPanel('area'),
-            FieldPanel('postcode')
+            FieldRowPanel([
+                FieldPanel('area'),
+                FieldPanel('postcode')
+            ])
         ], heading="Where?"),
 
         MultiFieldPanel([
@@ -115,11 +149,33 @@ class CommunityAsset(models.Model):
                 FieldPanel('email')
             ]),
             FieldPanel('url'),
-        ], heading="Contact details")
+        ], heading="Contact details"),
 
-        # MultiFieldPanel([
-
-        # ], heading="Internal")
+        MultiFieldPanel([
+                FieldPanel('review_notes'),
+                FieldRowPanel([
+                    FieldPanel('assigned_to'),
+                    FieldPanel('review_number'),
+                ]),
+                FieldRowPanel([
+                    FieldPanel('last_updated'),
+                    FieldPanel('review_date'),
+                ]),
+                FieldRowPanel([
+                    FieldPanel('vol_dbs_check'),
+                    FieldPanel('safeguarding'),
+                ]),
+                FieldRowPanel([
+                    FieldPanel('health_safety'),
+                    FieldPanel('insurance'),
+                ]),
+                FieldRowPanel([
+                    FieldPanel('laf_areas', widget=Select),
+                    FieldPanel('ccg_locality', widget=Select),
+                ]),
+                FieldPanel('clo_notes'),
+                FieldPanel('legacy_categories', widget=CheckboxSelectMultiple),
+        ], heading="Internal")
     ]
 
     def __str__(self):
