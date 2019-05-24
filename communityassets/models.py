@@ -3,13 +3,28 @@ from wagtail.admin.edit_handlers import FieldPanel, MultiFieldPanel, FieldRowPan
 from phonenumber_field.modelfields import PhoneNumberField
 from django.forms import Select, CheckboxSelectMultiple, CheckboxInput
 
+
 class Categories(models.Model):
     name = models.CharField(blank=False, null=False, max_length=100)
     def __str__(self):
         return self.name
 
-
 class Days(models.Model):
+    name = models.CharField(blank=False, null=False, max_length=100)
+    def __str__(self):
+        return self.name
+
+class AgeGroups(models.Model):
+    name = models.CharField(blank=False, null=False, max_length=100)
+    def __str__(self):
+        return self.name
+
+class Suitabilities(models.Model):
+    name = models.CharField(blank=False, null=False, max_length=100)
+    def __str__(self):
+        return self.name
+
+class Accessibilities(models.Model):
     name = models.CharField(blank=False, null=False, max_length=100)
     def __str__(self):
         return self.name
@@ -23,12 +38,12 @@ class CommunityAsset(models.Model):
     
     category = models.ForeignKey(Categories, on_delete=models.CASCADE, null=True, blank=False, default="")
     # KEYWORDS
-    # AGE GROUPS
-    # SUITABILITY
-    # ACCESSIBILITY
+    age_groups = models.ManyToManyField(AgeGroups, blank=True)
+    suitability = models.ManyToManyField(Suitabilities, blank=True)
+    accessibility = models.ManyToManyField(Accessibilities, blank=True)
 
     venue = models.CharField(blank=True, null=True, max_length=100)
-    # AREA
+    area = models.CharField(blank=True, null=True, max_length=100)
     postcode = models.CharField(blank=True, null=True, max_length=100)
 
     days = models.ManyToManyField(Days, blank=True)
@@ -72,8 +87,11 @@ class CommunityAsset(models.Model):
         ]),
 
         MultiFieldPanel([
-            FieldPanel('category', widget=Select)
+            FieldPanel('category', widget=Select),
             # ...
+            FieldPanel('age_groups', widget=CheckboxSelectMultiple),
+            FieldPanel('suitability', widget=CheckboxSelectMultiple),
+            FieldPanel('accessibility', widget=CheckboxSelectMultiple),
         ], heading="Discovery"),
 
         MultiFieldPanel([
@@ -86,6 +104,7 @@ class CommunityAsset(models.Model):
 
         MultiFieldPanel([
             FieldPanel('venue'),
+            FieldPanel('area'),
             FieldPanel('postcode')
         ], heading="Where?"),
 
