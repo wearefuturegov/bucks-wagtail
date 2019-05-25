@@ -97,8 +97,8 @@ class CommunityAsset(ClusterableModel):
     last_updated = models.DateField(blank=True, null=True)
     review_date = models.DateField(blank=True, null=True)
 
-    laf_areas = models.ForeignKey(LAFAreas, on_delete=models.CASCADE, null=True, blank=False, default="", verbose_name="LAF Area")
-    ccg_locality = models.ForeignKey(CCGLocalities, on_delete=models.CASCADE, null=True, blank=False, default="", verbose_name="CCG Locality")
+    laf_areas = models.ForeignKey(LAFAreas, on_delete=models.CASCADE, null=True, blank=True, default="", verbose_name="LAF Area")
+    ccg_locality = models.ForeignKey(CCGLocalities, on_delete=models.CASCADE, null=True, blank=True, default="", verbose_name="CCG Locality")
 
     vol_dbs_check = models.TextField(blank=True, null=True, max_length=500, verbose_name="Volunteer DBS check")
     safeguarding = models.TextField(blank=True, null=True, max_length=500)
