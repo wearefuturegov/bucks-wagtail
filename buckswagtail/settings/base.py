@@ -26,6 +26,8 @@ BASE_DIR = os.path.dirname(PROJECT_DIR)
 # Application definition
 
 INSTALLED_APPS = [
+    'django_extensions',
+
     'home',
     'search',
     'lifeevents',
@@ -48,7 +50,7 @@ INSTALLED_APPS = [
     'wagtail.api.v2',
     'modelcluster',
     'taggit',
-    # 'rest_framework',
+    'rest_framework',
 
     'django.contrib.admin',
     'django.contrib.auth',
