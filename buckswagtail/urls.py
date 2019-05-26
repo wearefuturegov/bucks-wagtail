@@ -8,14 +8,19 @@ from wagtail.documents import urls as wagtaildocs_urls
 
 from search import views as search_views
 from .api import api_router
-from communityassets.views import CommunityAssetCSV
-from communityassets.api import CommunityAssetViewSet
 
+from communityassets.views import CommunityAssetCSV
+
+from communityassets.api import CommunityAssetViewSet
 from rest_framework import routers
+
 router = routers.DefaultRouter()
 router.register(r'assets', CommunityAssetViewSet)
 
 urlpatterns = [
+
+    url(r'^assets/', include(router.urls)),
+
     url(r'^community-assets-csv/$', CommunityAssetCSV.as_view(), name='communityasset-csv'),
     url(r'^django-admin/', admin.site.urls),
     url(r'^api/v2/', api_router.urls),
@@ -26,7 +31,6 @@ urlpatterns = [
     # Wagtail's page serving mechanism. This should be the last pattern in
     # the list:
     url(r'', include(wagtail_urls)),
-    url(r'^assets/', include(router.urls)),
 ]
 
 

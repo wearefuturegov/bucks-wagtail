@@ -12,7 +12,7 @@ class CommunityAssetSerializer(serializers.HyperlinkedModelSerializer):
             'description', 
             'price', 
             
-            # 'category',
+            'category',
 
             'venue',
             'area',
