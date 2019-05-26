@@ -27,9 +27,8 @@ class Command(BaseCommand):
             reader = csv.DictReader(file)
             for row in reader:
 
-                # print("importing ", row["name"], "...")
+                print("importing ", row["name"], "...")
 
-                review_status, x = ReviewStatus.objects.get_or_create(name=row["review_status"])
                 laf_area, x = LAFAreas.objects.get_or_create(name=row["laf_area"])
                 ccg_locality, x = CCGLocalities.objects.get_or_create(name=row["ccg_locality"])
 
@@ -54,7 +53,6 @@ class Command(BaseCommand):
                     review_notes=row["review_notes"],
                     assigned_to=row["assigned_to"],
                     review_number=row["review_number"],
-                    review_status_id=review_status.id,
 
                     last_updated=row["last_updated"],
                     review_date=row["review_date"],
@@ -71,9 +69,13 @@ class Command(BaseCommand):
                 )
                 new_asset.save()
 
+                # Keep empty columns as null
                 if(row["category"] != ""):
                     object, x = Categories.objects.get_or_create(name=row["category"])
                     new_asset.category_id = object
+                if(row["review_status"] != ""):
+                    object, x = ReviewStatus.objects.get_or_create(name=row["review_status"])
+                    new_asset.review_status_id = object
 
                 keywords_array = list(filter(None, row["keywords"].split(";")))
                 for keyword in keywords_array:
@@ -83,27 +85,24 @@ class Command(BaseCommand):
                 for value in accessibility_array:
                     object, x = Accessibilities.objects.get_or_create(name=value)
                     new_asset.accessibility.add(object.id)
-
                 days_array = list(filter(None, row["days"].split(";")))
                 for value in days_array:
                     object, x = Days.objects.get_or_create(name=value)
                     new_asset.days.add(object.id)
-
                 age_groups_array = list(filter(None, row["age_groups"].split(";")))
                 for value in age_groups_array:
                     object, x = AgeGroups.objects.get_or_create(name=value)
                     new_asset.age_groups.add(object.id)
-
                 suitabilities_array = list(filter(None, row["suitability"].split(";")))
                 for value in suitabilities_array:
                     object, x = Suitabilities.objects.get_or_create(name=value)
                     new_asset.suitability.add(object.id)
-
                 legacy_categories_array = list(filter(None, row["legacy_categories"].split(";")))
                 for value in legacy_categories_array:
                     object, x = LegacyCategories.objects.get_or_create(name=value)
                     new_asset.legacy_categories.add(object.id)
 
+                # Ensure that all in-memory changes get saved
                 new_asset.save()
 
             print("Import completed successfully")
