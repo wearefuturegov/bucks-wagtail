@@ -33,6 +33,8 @@ INSTALLED_APPS = [
     'lifeevents',
     'communityassets',
 
+    'export_csv',
+
     'corsheaders',
     'phonenumber_field',
     'wagtail.contrib.forms',

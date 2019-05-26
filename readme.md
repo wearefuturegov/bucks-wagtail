@@ -53,3 +53,11 @@ To deploy:
 3. Run `python manage.py migrate` on Heroku to prepare the new database
 4. Run `python manage.py createsuperuser` to create an initial admin user
 5. The Wagtail dashboard should be accessible at the path /admin
+
+## Importing community assets
+
+Community assets have a complex data structure with several relations. Therefore, importing them is a three step process:
+
+1. Run [this query](https://gist.github.com/jhackett1/7592e3400362a9a07b2938db0e21d068) on the source MS Access database and export the output as a spreadsheet
+2. Import the data to the 'raw' sheet here, and export the 'processed' sheet as a CSV file, and put it in the project root directory
+3. Add the `python manage.py import [filename]` command, substituting the name of the CSV file

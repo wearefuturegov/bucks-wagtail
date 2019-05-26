@@ -1,0 +1,8 @@
+{% extends "modeladmin/index.html" %}
+{% load i18n modeladmin_tags %}
+
+{% block header_extra %}
+    <!-- Download CSV -->
+    <a href="{% if request.GET|length == 0 %}/community-assets-csv{% else %}{{ request.get_full_path }}/community-assets-csv{% endif %}" class="button bicolor icon icon-download">{% trans 'Download spreadsheet' %}</a>
+    {{ block.super }}
+{% endblock %}
