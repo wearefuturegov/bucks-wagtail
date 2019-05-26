@@ -59,5 +59,5 @@ To deploy:
 Community assets have a complex data structure with several relations. Therefore, importing them is a three step process:
 
 1. Run [this query](https://gist.github.com/jhackett1/7592e3400362a9a07b2938db0e21d068) on the source MS Access database and export the output as a spreadsheet
-2. Import the data to the 'raw' sheet here, and export the 'processed' sheet as a CSV file, and put it in the project root directory
+2. Import the data to the 'raw' sheet [here](https://docs.google.com/spreadsheets/d/1dCfvWVy4GgJrL4AdNKhs2d2KYktuWFiarNJbTOh7mG4/edit?usp=sharing), and export the 'processed' sheet as a CSV file, and put it in the project root directory
 3. Add the `python manage.py import [filename]` command, substituting the name of the CSV file
