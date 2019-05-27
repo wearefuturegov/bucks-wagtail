@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     'communityassets',
 
     'export_csv',
+    'django_filters',
 
     'corsheaders',
     'phonenumber_field',
@@ -189,3 +190,11 @@ BASE_URL = 'http://example.com'
 # Correctly format phone numbers
 PHONENUMBER_DB_FORMAT = 'NATIONAL'
 PHONENUMBER_DEFAULT_REGION = 'GB'
+
+
+# REST framework config
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+    'PAGE_SIZE': 100,
+    'DEFAULT_FILTER_BACKENDS': ('django_filters.rest_framework.DjangoFilterBackend', )
+}

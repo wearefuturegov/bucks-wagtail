@@ -15,13 +15,13 @@ from communityassets.api import CommunityAssetViewSet
 from rest_framework import routers
 
 router = routers.DefaultRouter()
-router.register(r'assets', CommunityAssetViewSet)
+router.register(r'services', CommunityAssetViewSet)
 
 urlpatterns = [
 
-    url(r'^assets/', include(router.urls)),
+    url(r'^api/', include(router.urls)),
 
-    url(r'^community-assets-csv/$', CommunityAssetCSV.as_view(), name='communityasset-csv'),
+    url(r'^community-assets-csv/', CommunityAssetCSV.as_view(), name='communityasset-csv'),
     url(r'^django-admin/', admin.site.urls),
     url(r'^api/v2/', api_router.urls),
     url(r'^admin/', include(wagtailadmin_urls)),

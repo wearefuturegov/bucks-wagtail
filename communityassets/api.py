@@ -1,6 +1,7 @@
 from django.conf.urls import url, include
 from .models import CommunityAsset
 from rest_framework import routers, serializers, viewsets
+from django_filters import rest_framework as filters
 
 # Serializers define the API representation.
 class CommunityAssetSerializer(serializers.HyperlinkedModelSerializer):
@@ -41,8 +42,16 @@ class CommunityAssetSerializer(serializers.HyperlinkedModelSerializer):
             'email',
         )
 
-# ViewSets define the view behavior.
+
+
+class CommunityAssetFilter(filters.FilterSet):
+    name = filters.CharFilter(lookup_expr="icontains")
+
+    class Meta:
+        model = CommunityAsset
+        fields = ('name', 'category')
+
 class CommunityAssetViewSet(viewsets.ModelViewSet):
     queryset = CommunityAsset.objects.all()
     serializer_class = CommunityAssetSerializer
-
+    filterset_class = CommunityAssetFilter
