@@ -12,10 +12,46 @@ This app does **not** include any page templates or front-end styling, as it's i
 
 **The master branch of this repo automatically deploys to [bucks-wagtail.herokuapp.com](http://bucks-wagtail.herokuapp.com).**
 
-## API endpoints
+## API schema
+
+Wagtail pages are available at:
 
 - `/api/v2/pages`
-- `/api/v2/community-assets`
+
+Community assets/services are available at:
+
+- `/api/services`
+
+By default, this endpoint returns a list of services, with the following fields:
+
+- `id`, the numerical database ID
+- `name`, the common name of this service
+- `parent_organisation`, the organisation delivering this service
+- `description`, a textual description of the service
+- `price`, a string describing the pricing structure of the service
+            
+- `category`, the category the service fits into
+- `keywords`, an array of 
+- `age_groups`, an array of age groups this service is suitable for
+- `suitability`, an array of medical and social conditions this service is suitable for
+- `accessibility`, on-site accessibility features
+
+- `days`, an array of days this service is available on
+- `frequency`, a description of when this service occurs
+- `daytime`, true if the service is only available between 9am and 5pm weekdays, false otherwise
+
+- `venue`, a description of the venue
+- `area`, the area within Buckinghamshire this service is available
+- `postcode`, the postcode of the above venue
+
+- `contact_name`, the name of a person associates with this service
+- `url`, the website
+- `phone`, a contact telephone number
+- `email`, a contact email address
+
+**Apart from `id`, all fields are optional**
+
+
 
 ## Prerequisites
 
