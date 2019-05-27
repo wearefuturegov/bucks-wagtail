@@ -37,7 +37,6 @@ INSTALLED_APPS = [
     'django_filters',
 
     'corsheaders',
-    'phonenumber_field',
     'wagtail.contrib.forms',
     'wagtail.contrib.redirects',
     'wagtail.contrib.modeladmin',

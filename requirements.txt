@@ -37,7 +37,6 @@ lxml==4.3.3
 messytables==0.15.2
 odfpy==1.4.0
 openpyxl==2.6.2
-phonenumbers==8.10.12
 Pillow==5.4.1
 psycopg2==2.8.2
 psycopg2-binary==2.8.2
