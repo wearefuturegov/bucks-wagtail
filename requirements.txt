@@ -15,7 +15,7 @@ django-csv-export==0.0.3
 django-csvimport==2.12
 django-debug-toolbar==1.11
 django-extensions==2.1.7
-django-filter==1.1.0
+django-filter==2.1.0
 django-import-export==1.2.0
 django-modelcluster==4.4
 django-phonenumber-field==2.4.0
@@ -42,8 +42,7 @@ Pillow==5.4.1
 psycopg2==2.8.2
 psycopg2-binary==2.8.2
 python-dateutil==2.8.0
-# python-magic==0.4.15
-# python-magic-bin==0.4.14
+python-magic==0.4.15
 pytz==2019.1
 PyYAML==5.1
 requests==2.22.0
