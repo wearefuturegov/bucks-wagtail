@@ -51,11 +51,11 @@ class CommunityAssetFilter(filters.FilterSet):
     class Meta:
         model = CommunityAsset
         fields = (
-            'category',
-            'days',
-            'accessibility',
-            'suitability',
-            'age_groups'
+            'category__name',
+            'days__name',
+            'accessibility__name',
+            'suitability__name',
+            'age_groups__name'
         )
 
 class CommunityAssetViewSet(viewsets.ModelViewSet):

@@ -51,7 +51,33 @@ By default, this endpoint returns a list of services, with the following fields:
 
 **Apart from `id`, all fields are optional**
 
+### Searching
 
+
+### Filtering
+
+It is possible to filter by any of these fields by adding query parameters to the end of the URL:
+
+- `category__name`
+- `days__name`
+- `accessibility__name`
+- `suitability__name`
+- `age_groups__name`
+
+For instance: `.../api/services?category__name=Cultural`
+
+Values are case-sensitive.
+
+### Searching
+
+It is possible to perform a full-text case-insensitive search across these fields by adding a `?search=` query parameter:
+
+- `name`
+- `parent_organisation`
+- `description`
+- `keywords`
+- `venue`
+- `url`
 
 ## Prerequisites
 
