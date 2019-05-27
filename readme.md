@@ -14,10 +14,6 @@ This app does **not** include any page templates or front-end styling, as it's i
 
 ## API schema
 
-Wagtail pages are available at:
-
-- `/api/v2/pages`
-
 Community assets/services are available at:
 
 - `/api/services`
