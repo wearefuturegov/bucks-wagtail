@@ -37,6 +37,8 @@ class LifeEvent(Page):
         [
             ("rich_text", blocks.RichTextBlock()),
             ("person_profile", blocks.PersonProfileBlock()),
+            ("call_to_action", blocks.CallToActionButton()),
+            ("financial_help_checker", blocks.FinancialHelpChecker()),
         ],
         null=True,
         blank=True
