@@ -1,7 +1,7 @@
 from django.db import models
 from wagtail.admin.edit_handlers import FieldPanel, MultiFieldPanel, FieldRowPanel
-from phonenumber_field.modelfields import PhoneNumberField
 from django.forms import Select, CheckboxSelectMultiple, CheckboxInput
+from wagtailgmaps.edit_handlers import MapFieldPanel
 
 from modelcluster.fields import ParentalKey
 from modelcluster.contrib.taggit import ClusterTaggableManager
@@ -79,6 +79,9 @@ class CommunityAsset(ClusterableModel):
     area = models.CharField(blank=True, null=True, max_length=100)
     postcode = models.CharField(blank=True, null=True, max_length=100)
 
+    # Wagtailgmaps expects a `CharField` (or any other field that renders as a text input)
+    lat_lng = models.CharField(max_length=255, null=True)
+
     days = models.ManyToManyField(Days, blank=True)
     frequency = models.CharField(blank=True, null=True, max_length=150, help_text="Describe the frequency of this event if applicable. For example 'daily' or 'fortnightly'")
     daytime = models.BooleanField(blank=True, null=True, help_text="Does this service happen during the daytime (between 9-5)?", default=False, verbose_name="During daytime?")
@@ -138,7 +141,10 @@ class CommunityAsset(ClusterableModel):
             FieldRowPanel([
                 FieldPanel('area'),
                 FieldPanel('postcode')
-            ])
+            ]),
+
+            MapFieldPanel('lat_lng', latlng=True),
+
         ], heading="Where?"),
 
         MultiFieldPanel([

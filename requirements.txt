@@ -14,11 +14,12 @@ django-cors-headers==3.0.1
 django-csv-export==0.0.3
 django-csvimport==2.12
 django-debug-toolbar==1.11
+django-dotenv==1.4.2
 django-extensions==2.1.7
 django-filter==2.1.0
 django-import-export==1.2.0
 django-modelcluster==4.4
-django-phonenumber-field==2.4.0
+django-phonenumber-field==3.0.1
 django-storages==1.7.1
 django-taggit==0.24.0
 django-toolbelt==0.0.1
@@ -37,6 +38,7 @@ lxml==4.3.3
 messytables==0.15.2
 odfpy==1.4.0
 openpyxl==2.6.2
+phonenumbers==8.10.12
 Pillow==5.4.1
 psycopg2==2.8.2
 psycopg2-binary==2.8.2
@@ -53,6 +55,7 @@ tablib==0.13.0
 Unidecode==1.0.23
 urllib3==1.24.3
 wagtail==2.5.1
+wagtailgmaps==1.0.1
 webencodings==0.5.1
 whitenoise==4.1.2
 Willow==1.1

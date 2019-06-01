@@ -2,6 +2,7 @@ from django.core.management.base import BaseCommand, CommandError
 from django.template.defaultfilters import slugify
 from communityassets.models import CommunityAsset, Categories, ReviewStatus, LAFAreas, CCGLocalities, Accessibilities, Days, Suitabilities, AgeGroups, LegacyCategories, Keywords
 import csv
+import requests 
 
 def str_to_bool(s):
     if s == 'TRUE':
@@ -20,7 +21,7 @@ class Command(BaseCommand):
     # Handle command
     def handle(self, *args, **options):
 
-        # Delete all records
+        # First, delete all records
         CommunityAsset.objects.all().delete()
 
         with open (options['file']) as file: 
@@ -32,6 +33,14 @@ class Command(BaseCommand):
                 laf_area, x = LAFAreas.objects.get_or_create(name=row["laf_area"])
                 ccg_locality, x = CCGLocalities.objects.get_or_create(name=row["ccg_locality"])
 
+                # Use the Geocoding API
+                # url = 'https://maps.googleapis.com/maps/api/geocode/json?key=' + env['GOOGLE_API_KEY'] + '&address=' + row["venue"] + '+' + row["postcode"]
+                # r = requests.get(url)
+                # data = r.json()
+                # latitude = data['results'][0]['geometry']['location']['lat'] 
+                # longitude = data['results'][0]['geometry']['location']['lng'] 
+                # lat_lng = "%s, %s" % (latitude, longitude)
+
                 new_asset = CommunityAsset(
                     name=row["name"],
                     parent_organisation=row["parent_organisation"],
@@ -41,6 +50,7 @@ class Command(BaseCommand):
                     venue=row["venue"],
                     area=row["area"],
                     postcode=row["postcode"],
+                    lat_lng=row["lat_lng"],
 
                     frequency=row["frequency"],
                     daytime=str_to_bool(row["daytime"]),

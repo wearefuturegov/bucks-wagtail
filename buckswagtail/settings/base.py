@@ -18,10 +18,8 @@ env = os.environ.copy()
 PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BASE_DIR = os.path.dirname(PROJECT_DIR)
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
-
 
 # Application definition
 
@@ -35,6 +33,7 @@ INSTALLED_APPS = [
 
     'export_csv',
     'django_filters',
+    'wagtailgmaps',
 
     'corsheaders',
     'wagtail.contrib.forms',
@@ -185,15 +184,17 @@ WAGTAIL_SITE_NAME = "buckswagtail"
 # e.g. in notification emails. Don't include '/admin' or a trailing slash
 BASE_URL = 'http://example.com'
 
-
-# Correctly format phone numbers
-PHONENUMBER_DB_FORMAT = 'NATIONAL'
-PHONENUMBER_DEFAULT_REGION = 'GB'
-
-
 # REST framework config
 REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
     'PAGE_SIZE': 100,
     'DEFAULT_FILTER_BACKENDS': ('django_filters.rest_framework.DjangoFilterBackend', )
 }
+
+WAGTAILAPI_BASE_URL = env["HOST_URL"]
+
+# Wagtail maps config
+WAGTAIL_ADDRESS_MAP_CENTER = 'Aylesbury, UK'  # It must be a properly formatted address
+WAGTAIL_ADDRESS_MAP_KEY = env['GOOGLE_API_KEY']
+WAGTAIL_ADDRESS_MAP_ZOOM = 9  # See https://developers.google.com/maps/documentation/javascript/tutorial#MapOptions for more information.
+WAGTAIL_ADDRESS_MAP_LANGUAGE = 'en'  # See https://developers.google.com/maps/faq#languagesupport for supported languages.
