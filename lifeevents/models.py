@@ -10,20 +10,10 @@ from streams import blocks
 
 # Create your models here.
 class LifeEventPage(Page):
-
-
     parent_page_types = ["home.HomePage"]
 
-    hero_image = models.ForeignKey(
-        "wagtailimages.Image", 
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-        related_name="+",
-        help_text="A large, mood-setting image which fills the top of the page"
-    )
-    homepage_summary = models.CharField(max_length=400, blank=False, null=True, help_text="Appears on the homepage")
-    first_paragraph = models.TextField(max_length=300, blank=False, null=True, help_text="The introductory paragraph")
+    summary = models.CharField(max_length=200, blank=False, null=True, help_text="A short summary of the page that appears on the homepage and in search results")
+    intro = models.CharField(max_length=400, blank=False, null=True, help_text="Appears under the title")
 
     content = StreamField(
         [
@@ -36,16 +26,14 @@ class LifeEventPage(Page):
     )
 
     api_fields = [
-        APIField("first_paragraph"),
-        APIField("homepage_summary"),
-        APIField("hero_image"),
+        APIField("summary"),
+        APIField("intro"),
         APIField("content")
     ]
 
     content_panels = Page.content_panels + [
-        ImageChooserPanel("hero_image"),
-        FieldPanel("homepage_summary"),
-        FieldPanel("first_paragraph"),
+        FieldPanel("summary"),
+        FieldPanel("intro"),
         StreamFieldPanel("content")
     ]
 
