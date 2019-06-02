@@ -12,6 +12,9 @@ from streams import blocks
 class LearnMore(Orderable):
     page = ParentalKey("lifeevents.LifeEvent", related_name="learn_more")
 
+    def get_slug(self):
+        return self.related_page.slug
+
     related_page = models.ForeignKey(
         'wagtailcore.Page',
         null=True,
@@ -19,6 +22,7 @@ class LearnMore(Orderable):
         on_delete=models.SET_NULL,
         related_name='+',
     )
+    slug = property(get_slug)
 
     panels = [
         PageChooserPanel('related_page'),
@@ -26,6 +30,7 @@ class LearnMore(Orderable):
 
     api_fields = [
         APIField("related_page"),
+        APIField("slug"),
     ]
 
 
@@ -90,4 +95,4 @@ class LifeEvent(Page):
 
 
 class GenericContent(LifeEvent):
-    parent_page_types = ["home.HomePage", "lifeevents.LifeEvent"]
+    parent_page_types = ["home.HomePage"]
