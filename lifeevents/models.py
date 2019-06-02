@@ -6,6 +6,8 @@ from wagtail.core.fields import StreamField
 from wagtail.api import APIField
 from modelcluster.fields import ParentalKey
 
+from django.forms import CheckboxInput
+
 from streams import blocks
 
 class ExternalLinks(Orderable):
@@ -42,9 +44,9 @@ class GenericContentPage(Page):
         on_delete=models.SET_NULL,
         related_name='+'
     )
-
     summary = models.CharField(max_length=200, blank=False, null=True, help_text="A short summary of the page that appears on the homepage and in search results")
     intro = models.CharField(max_length=400, blank=False, null=True, help_text="Appears under the title")
+    popular = models.BooleanField(null=True, help_text="Show in the Popular advice section on the homepage")
 
     content = StreamField(
         [
@@ -63,13 +65,15 @@ class GenericContentPage(Page):
         APIField("intro"),
         APIField("image"),
         APIField("content"),
-        APIField("external_links")
+        APIField("external_links"),
+        APIField("popular")
     ]
 
     content_panels = Page.content_panels + [
         FieldPanel("summary"),
         FieldPanel("intro"),
         ImageChooserPanel('image'),
+        FieldPanel("popular", widget=CheckboxInput),
         StreamFieldPanel("content"),
         InlinePanel("external_links", heading="External links")
     ]
