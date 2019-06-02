@@ -2,7 +2,15 @@
 
 {% block content %}
 
+
+    {% for page in self.get_children.specific %}
+        {{ page.title }}
+    {% endfor %}
+
+
     <h1>{{ self.title }}</h1>
     <p>{{ self.intro }}</p>
 
 {% endblock content %}
+
+

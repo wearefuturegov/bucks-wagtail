@@ -8,7 +8,6 @@ from modelcluster.fields import ParentalKey
 
 from streams import blocks
 
-
 class ExternalLinks(Orderable):
     page = ParentalKey("lifeevents.LifeEvent", related_name="external_links")
 
@@ -64,7 +63,6 @@ class LifeEvent(Page):
         StreamFieldPanel("content"),
         InlinePanel("external_links", heading="External links")
     ]
-
 
 class GenericContent(LifeEvent):
     parent_page_types = ["home.HomePage", "lifeevents.LifeEvent"]
