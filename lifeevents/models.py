@@ -1,12 +1,32 @@
 from django.db import models
 from wagtail.core.models import Page, Orderable
-from wagtail.admin.edit_handlers import FieldPanel, StreamFieldPanel, InlinePanel, FieldRowPanel
+from wagtail.admin.edit_handlers import FieldPanel, StreamFieldPanel, InlinePanel, FieldRowPanel, PageChooserPanel
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.core.fields import StreamField
 from wagtail.api import APIField
 from modelcluster.fields import ParentalKey
 
 from streams import blocks
+
+
+class LearnMore(Orderable):
+    page = ParentalKey("lifeevents.LifeEvent", related_name="learn_more")
+
+    related_page = models.ForeignKey(
+        'wagtailcore.Page',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+',
+    )
+
+    panels = [
+        PageChooserPanel('related_page'),
+    ]
+
+    api_fields = [
+        APIField("related_page"),
+    ]
 
 
 class ExternalLinks(Orderable):
@@ -56,6 +76,7 @@ class LifeEvent(Page):
         APIField("summary"),
         APIField("intro"),
         APIField("content"),
+        APIField("learn_more"),
         APIField("external_links")
     ]
 
@@ -63,5 +84,10 @@ class LifeEvent(Page):
         FieldPanel("summary"),
         FieldPanel("intro"),
         StreamFieldPanel("content"),
+        InlinePanel("learn_more", heading="Learn more"),
         InlinePanel("external_links", heading="External links")
     ]
+
+
+class GenericContent(LifeEvent):
+    parent_page_types = ["home.HomePage", "lifeevents.LifeEvent"]
