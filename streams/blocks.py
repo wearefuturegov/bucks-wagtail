@@ -48,3 +48,9 @@ class FinancialHelpChecker(blocks.StaticBlock):
     class Meta:
         icon = "help"
         label = "Financial help checker"
+
+class NeedsExplorer(blocks.StaticBlock):
+    admin_text='Display the needs explorer',
+    class Meta:
+        icon = "help"
+        label = "Needs explorer"

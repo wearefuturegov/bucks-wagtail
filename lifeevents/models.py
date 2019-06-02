@@ -46,6 +46,7 @@ class LifeEvent(Page):
             ("person_profile", blocks.PersonProfileBlock()),
             ("call_to_action", blocks.CallToActionButton()),
             ("financial_help_checker", blocks.FinancialHelpChecker()),
+            ("needs_explorer", blocks.NeedsExplorer())
         ],
         null=True,
         blank=True
