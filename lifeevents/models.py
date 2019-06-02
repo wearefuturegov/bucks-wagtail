@@ -61,6 +61,7 @@ class GenericContentPage(Page):
     api_fields = [
         APIField("summary"),
         APIField("intro"),
+        APIField("image"),
         APIField("content"),
         APIField("external_links")
     ]
