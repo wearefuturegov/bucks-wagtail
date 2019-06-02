@@ -9,31 +9,6 @@ from modelcluster.fields import ParentalKey
 from streams import blocks
 
 
-class LearnMore(Orderable):
-    page = ParentalKey("lifeevents.LifeEvent", related_name="learn_more")
-
-    def get_slug(self):
-        return self.related_page.slug
-
-    related_page = models.ForeignKey(
-        'wagtailcore.Page',
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-        related_name='+',
-    )
-    slug = property(get_slug)
-
-    panels = [
-        PageChooserPanel('related_page'),
-    ]
-
-    api_fields = [
-        APIField("related_page"),
-        APIField("slug"),
-    ]
-
-
 class ExternalLinks(Orderable):
     page = ParentalKey("lifeevents.LifeEvent", related_name="external_links")
 
@@ -58,7 +33,6 @@ class ExternalLinks(Orderable):
         APIField("url"),
     ]
 
-
 class LifeEvent(Page):
     parent_page_types = ["home.HomePage"]
 
@@ -81,7 +55,6 @@ class LifeEvent(Page):
         APIField("summary"),
         APIField("intro"),
         APIField("content"),
-        APIField("learn_more"),
         APIField("external_links")
     ]
 
@@ -89,10 +62,9 @@ class LifeEvent(Page):
         FieldPanel("summary"),
         FieldPanel("intro"),
         StreamFieldPanel("content"),
-        InlinePanel("learn_more", heading="Learn more"),
         InlinePanel("external_links", heading="External links")
     ]
 
 
 class GenericContent(LifeEvent):
-    parent_page_types = ["home.HomePage"]
+    parent_page_types = ["home.HomePage", "lifeevents.LifeEvent"]
