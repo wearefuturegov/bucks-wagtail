@@ -30,6 +30,14 @@ class ExternalLinks(Orderable):
 
 class GenericContent(Page):
     summary = models.CharField(max_length=200, blank=False, null=True, help_text="A short summary of the page that appears on the homepage and in search results")
+    image = models.ForeignKey(
+        "wagtailimages.Image", 
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="+",
+        help_text="A mood-setting image which appears on the homepage and in search results"
+    )
     intro = models.CharField(max_length=400, blank=False, null=True, help_text="Appears under the title")
     popular_advice = models.BooleanField(null=True, blank=True, help_text="Show this page as popular advice on the homepage?")
     popular_search = models.BooleanField(null=True, blank=True, help_text="Show this page as a popular search on the homepage?")
@@ -48,6 +56,7 @@ class GenericContent(Page):
     api_fields = [
         APIField("summary"),
         APIField("intro"),
+        APIField("image"),
         APIField("content"),
         APIField("popular_advice"),
         APIField("popular_search"),
@@ -56,6 +65,7 @@ class GenericContent(Page):
     content_panels = Page.content_panels + [
         FieldPanel("summary"),
         FieldPanel("intro"),
+        ImageChooserPanel("image"), 
         MultiFieldPanel([
             FieldRowPanel([
                 FieldPanel("popular_advice", widget=CheckboxInput),
