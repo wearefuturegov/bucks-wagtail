@@ -60,6 +60,7 @@ class GenericContent(Page):
         APIField("content"),
         APIField("popular_advice"),
         APIField("popular_search"),
+        APIField("external_links")
     ]
 
     content_panels = Page.content_panels + [

@@ -47,7 +47,8 @@ class LifeEvent(Page):
     api_fields = [
         APIField("summary"),
         APIField("intro"),
-        APIField("content")
+        APIField("content"),
+        APIField("external_links")
     ]
 
     content_panels = Page.content_panels + [
