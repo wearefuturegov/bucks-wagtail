@@ -26,6 +26,13 @@ class ExternalLinks(Orderable):
         ])
     ]
 
+    api_fields = [
+        APIField("title"),
+        APIField("summary"),
+        APIField("link_text"),
+        APIField("url"),
+    ]
+
 
 class LifeEvent(Page):
     parent_page_types = ["home.HomePage"]
