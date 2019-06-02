@@ -9,7 +9,7 @@ from modelcluster.fields import ParentalKey
 from streams import blocks
 
 class ExternalLinks(Orderable):
-    page = ParentalKey("lifeevents.LifeEvent", related_name="external_links")
+    page = ParentalKey("lifeevents.GenericContentPage", related_name="external_links")
 
     title = models.CharField(max_length=200, blank=False, null=True)
     summary = models.CharField(max_length=200, blank=False, null=True)
@@ -32,8 +32,16 @@ class ExternalLinks(Orderable):
         APIField("url"),
     ]
 
-class LifeEvent(Page):
-    parent_page_types = ["home.HomePage"]
+class GenericContentPage(Page):
+    parent_page_types = ["home.HomePage", "lifeevents.LifeEventPage"]
+
+    image = models.ForeignKey(
+        'wagtailimages.Image',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+'
+    )
 
     summary = models.CharField(max_length=200, blank=False, null=True, help_text="A short summary of the page that appears on the homepage and in search results")
     intro = models.CharField(max_length=400, blank=False, null=True, help_text="Appears under the title")
@@ -60,9 +68,11 @@ class LifeEvent(Page):
     content_panels = Page.content_panels + [
         FieldPanel("summary"),
         FieldPanel("intro"),
+        ImageChooserPanel('image'),
         StreamFieldPanel("content"),
         InlinePanel("external_links", heading="External links")
     ]
 
-class GenericContent(LifeEvent):
-    parent_page_types = ["home.HomePage", "lifeevents.LifeEvent"]
+
+class LifeEventPage(GenericContentPage):
+    parent_page_types = ["home.HomePage"]
