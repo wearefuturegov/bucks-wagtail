@@ -19,7 +19,7 @@ class RichTextBlock(blocks.RichTextBlock):
     def __init__(self, required=True, help_text=None, editor='default', features=None, validators=(), **kwargs):
         super().__init__(**kwargs)
         self.features = [
-            "bold", "italic", "link", "h2", "h3", "ol", "ul"
+            "bold", "italic", "link", "h2", "h3", "ol", "ul", "hr"
         ]
     class Meta:
         icon = "doc-full"
