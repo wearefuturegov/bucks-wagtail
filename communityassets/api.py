@@ -14,7 +14,7 @@ class CommunityAssetSerializer(serializers.HyperlinkedModelSerializer):
     suitability = serializers.StringRelatedField(many=True)
     accessibility = serializers.StringRelatedField(many=True)
     days = serializers.StringRelatedField(many=True)
-    
+
     class Meta:
         model = CommunityAsset
         fields = (

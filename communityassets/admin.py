@@ -22,3 +22,6 @@ class CommunityAssetAdmin(ModelAdmin):
     index_template_name = 'index.html'
 
 modeladmin_register(CommunityAssetAdmin)
+
+
+admin.site.register(CommunityAsset)

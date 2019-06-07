@@ -30,6 +30,7 @@ INSTALLED_APPS = [
     'search',
     'lifeevents',
     'communityassets',
+    'advicesnippet',
 
     'export_csv',
     'django_filters',
